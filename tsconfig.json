@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2017", 
+    "module": "commonjs",
+    "allowJs": true,        
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true,               
+    "esModuleInterop": true,  
+    "forceConsistentCasingInFileNames": true,     
+    "resolveJsonModule": true,   
+    "strict": true,
+    "outDir": "./dist",
+    "types": ["node", "express", "./src/@types/express/types.d.ts"]                              
+  }
+}

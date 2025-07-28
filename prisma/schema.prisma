@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TaskStatus {
+  NO_START
+  IN_PROGRESS
+  COMPLETED
+}
+
+model User {
+  id         String   @id @default(uuid())
+  idGoogle   String   @unique
+  name       String
+  email      String
+  imgProfile String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  categories Category[]
+  tasks      Task[]
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  userId String? // null = categoria padrão
+  user   User?   @relation(fields: [userId], references: [id])
+
+  taskCategories TaskCategory[]
+}
+
+model Task {
+  id        String     @id @default(uuid())
+  name      String
+  about     String?
+  link      String?
+  status    TaskStatus
+  startAt   DateTime
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  taskCategories TaskCategory[]
+  studySessions  StudySession[]
+}
+
+model TaskCategory {
+  taskId     String
+  categoryId String
+
+  task     Task     @relation(fields: [taskId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+
+  @@id([taskId, categoryId])
+}
+
+model StudySession {
+  id        String   @id @default(uuid())
+  date      DateTime
+  duration  Int
+  createdAt DateTime @default(now())
+
+  taskId String
+  task   Task   @relation(fields: [taskId], references: [id])
+}
