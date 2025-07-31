@@ -56,6 +56,46 @@ class TaskRepository implements ITaskRepository {
       })),
     );
   }
+
+  async findByTaskId(taskId: string): Promise<TaskEntity | null> {
+    const task = await prisma.task.findUnique({
+      where: { id: taskId },
+      include: {
+        taskCategories: {
+          include: {
+            category: true,
+          },
+        },
+        studySessions: true,
+      },
+    });
+
+    if (!task) return null;
+
+    return new TaskEntity(
+      task.id,
+      task.name,
+      task.status,
+      task.startAt,
+      task.userId,
+      task.createdAt,
+      task.updatedAt,
+      task.about ?? undefined,
+      task.link ?? undefined,
+      task.taskCategories.map((tc) => ({
+        categoryId: tc.categoryId,
+        category: {
+          id: tc.category.id,
+          name: tc.category.name,
+        },
+      })),
+      task.studySessions.map((ss) => ({
+        id: ss.id,
+        date: ss.date,
+        duration: ss.duration,
+      })),
+    );
+  }
 }
 
 export { TaskRepository };
