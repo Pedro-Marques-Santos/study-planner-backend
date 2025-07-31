@@ -17,9 +17,9 @@ class UserRepository implements IUserRepository {
       user.idGoogle,
       user.name,
       user.email,
-      user.imgProfile || undefined,
       user.createdAt,
       user.updatedAt,
+      user.imgProfile || undefined,
     );
   }
 
@@ -43,9 +43,9 @@ class UserRepository implements IUserRepository {
       user.idGoogle,
       user.name,
       user.email,
-      user.imgProfile || undefined,
       user.createdAt,
       user.updatedAt,
+      user.imgProfile || undefined,
     );
   }
 }

@@ -31,6 +31,7 @@ model Category {
   id        String   @id @default(uuid())
   name      String
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   userId String? // null = categoria padrão
   user   User?   @relation(fields: [userId], references: [id])
@@ -70,6 +71,7 @@ model StudySession {
   date      DateTime
   duration  Int
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   taskId String
   task   Task   @relation(fields: [taskId], references: [id])

@@ -1,11 +1,9 @@
-export class UserEntity {
+export class CategoryEntity {
   constructor(
     public readonly id: string,
-    public readonly idGoogle: string,
     public name: string,
-    public email: string,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public imgProfile?: string,
+    public userId?: string,
   ) {}
 }
