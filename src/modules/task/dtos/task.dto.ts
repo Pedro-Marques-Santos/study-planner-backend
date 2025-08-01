@@ -1,3 +1,5 @@
+import { PeriodTypeTask } from "../utils/interfaces";
+
 export interface ICreateTaskDTO {
   name: string;
   about?: string;
@@ -10,4 +12,9 @@ export interface ICreateTaskDTO {
     date: Date;
     duration: number;
   }[];
+}
+
+export interface IGetDateFilterByPeriodDTO {
+  userId: string;
+  period: PeriodTypeTask;
 }
